@@ -25,7 +25,7 @@ func DefaultProxyOpt(cc *grpc.ClientConn) grpc.ServerOption {
 // DefaultDirector returns a very simple forwarding StreamDirector that forwards all
 // calls.
 func DefaultDirector(cc *grpc.ClientConn) StreamDirector {
-	return func(ctx context.Context, fullMethodName string) (context.Context, *grpc.ClientConn, error) {
+	return func(ctx context.Context, fullMethodName string) (context.Context, grpc.ClientConnInterface, error) {
 		md, _ := metadata.FromIncomingContext(ctx)
 		ctx = metadata.NewOutgoingContext(ctx, md.Copy())
 		return ctx, cc, nil
